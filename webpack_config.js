@@ -13,7 +13,43 @@ module.exports = {
     rules: [
       {
         test: /\.(jsx|js)?$/,
-        use: 'babel-loader'
+        exclude: /node_modules/,
+        use: [{
+          loader:'babel-loader',
+          options:{
+            presets:['es2017', 'stage-0', 'react'],
+            plugins:['transform-decorators-legacy']
+          }
+        }]
+      },
+      // add when you need
+      {
+        test: /\.css$/,
+        use: "style-loader!css-loader"
+      },
+      {
+        test: /\.png$/,
+        use: "url-loader?limit=100000"
+      },
+      {
+        test: /\.jpg$/,
+        use: "file-loader"
+      },
+      {
+        test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
+        use: 'url?limit=10000&mimetype=application/font-woff'
+      },
+      {
+        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+        use: 'url?limit=10000&mimetype=application/octet-stream'
+      },
+      {
+        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+        use: 'file'
+      },
+      {
+        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+        use: 'url?limit=10000&mimetype=image/svg+xml'
       }
     ],
   },
